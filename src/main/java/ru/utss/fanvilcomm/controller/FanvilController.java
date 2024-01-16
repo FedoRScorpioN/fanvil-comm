@@ -110,7 +110,7 @@ public class FanvilController {
                 result.append(line).append("\n");
             }
 
-            boolean exitCode = process.waitFor(5, TimeUnit.SECONDS);
+            boolean exitCode = process.waitFor(1, TimeUnit.SECONDS);
             if (!exitCode) {
                 logger.error("Ошибка выполнения команды tracert. Код завершения: {}", process.exitValue());
             }
