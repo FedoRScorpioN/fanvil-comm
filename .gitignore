@@ -38,3 +38,6 @@ build/
 /mvnw.cmd
 /.env
 /src/main/resources/application.yaml
+/src/main/python/.env
+/src/main/python/app.log
+/app.log
