@@ -41,3 +41,7 @@ build/
 /src/main/python/.env
 /src/main/python/app.log
 /app.log
+/src/main/resources/TelEXCEL.xlsx
+/src/main/resources/TelHTML.html
+/src/main/resources/TelJSON.json
+/qodana.yaml

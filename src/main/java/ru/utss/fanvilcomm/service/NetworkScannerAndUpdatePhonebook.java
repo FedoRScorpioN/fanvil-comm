@@ -2,34 +2,29 @@ package ru.utss.fanvilcomm.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 @Service
 public class NetworkScannerAndUpdatePhonebook {
 
     private static final Logger logger = LoggerFactory.getLogger(NetworkScannerAndUpdatePhonebook.class);
+    @Value("${python.pythonCommand}")
+    private String pythonCommand;
+    @Value("${python.pythonScriptPath}")
+    private String pythonScriptPath;
+
 
     @Scheduled(initialDelay = 0, fixedDelayString = "${nmap.scan.interval}")
     private void runPythonScript() {
         try {
-            String pythonCommand = "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python311\\python.exe";
-            String pythonScriptPath = "src/main/python/Main.py";
-
-            ProcessBuilder processBuilder = new ProcessBuilder(pythonCommand, pythonScriptPath);
+            ProcessBuilder processBuilder = new ProcessBuilder(pythonCommand, "-Xutf8", pythonScriptPath);
             processBuilder.redirectErrorStream(true);
+            processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT); // Добавлено
             Process process = processBuilder.start();
-
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    logger.info(line);
-                }
-            }
 
             int exitCode = process.waitFor();
 

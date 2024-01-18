@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class FanvilCommApplication {
 
     public static void main(String[] args) {
+        System.setProperty("file.encoding", "UTF-8");
         SpringApplication.run(FanvilCommApplication.class, args);
     }
 }
